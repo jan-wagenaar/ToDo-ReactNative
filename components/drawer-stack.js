@@ -18,7 +18,7 @@ const DrawerStack = () => {
         <Drawer.Screen 
           name="Home" 
           component={HomeScreen} 
-          initialParams={{ itemId: 0 }}
+          initialParams={{ listId: 0 }}
         />
       </Drawer.Navigator>
     </NavigationContainer>
