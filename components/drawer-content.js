@@ -1,14 +1,34 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import { DrawerContentScrollView, DrawerItem } from '@react-navigation/drawer';
 
-
-const test = [{ name: 'test0', id: 0}, { name: 'test1', id: 1}, { name: 'test2', id: 2}]
+import useLists from '../hooks/useLists';
+import { database } from '../database/database'
   
 const DrawerContent = (props) => {
+  const { getLists, insertList } = useLists();
+  const [lists, setLists] = useState([]);
+
+  useEffect(() => {
+    getLists((listsArray) => { setLists(listsArray)});
+  }, [] )
+
+  const setupNewList = () => {
+    insertList((id) => {
+      console.log(id)
+      getLists((listsArray) => { setLists(listsArray)});
+      props.navigation.navigate('Home', { listId: id })
+    });
+  }
+  
+  const dropTables = async () => {
+    await database.DBDropDatabaseTablesAsync();
+    console.log('Dropped')
+  }
+
     return (
       <>
         <DrawerContentScrollView {...props}>
-          {test.map((object) => {
+          {lists.map((object) => {
             return (
               <DrawerItem
                 key={object.id}
@@ -19,11 +39,14 @@ const DrawerContent = (props) => {
           })}
           <DrawerItem
                 label="+ New list"
-                onPress={() => props.navigation.navigate('Home', { listId: 0 })}
+                onPress={setupNewList}
+          />
+                    <DrawerItem
+                label="Drop tables"
+                onPress={dropTables}
           />
         </DrawerContentScrollView>
       </>
-
     );
   };
 

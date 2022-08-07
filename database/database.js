@@ -6,7 +6,8 @@ import {
   tableSetupScript,
   tableSetupListItemScript,
   tableDropTables,
-  getListsScript
+  getListsScript,
+  insertListScript
 } from './scripts';
 
 import { 
@@ -52,10 +53,10 @@ const DBGetListById = (id, setListFunc) => {
 
 const DBInsertList = (listRec, successFunc) => {
   db.transaction( tx => {
-      tx.executeSql( 'INSERT INTO list (name, datetime) values (? , ?)', [listRec.name, listRec.datetime] );
+      tx.executeSql( insertListScript, 
+        [listRec.name, listRec.datetime],
+        (t, r) => { successFunc(r.insertId);})
     },
-    (t, error) => { console.log("db error insertList"); console.log(error);},
-    (t, success) => { successFunc() }
   )
 }
 
@@ -92,16 +93,16 @@ const DBGetListItems = (itemId, setListItemsFunc) => {
       }
     );
   })
-}
+};
 
 const DBInsertListItem = (listItemRec, successFunc) => {
   db.transaction( tx => {
-      tx.executeSql( 'INSERT INTO listitem (listid, name, datetime) VALUES (?,?,?)', [listItemRec.listId, listItemRec.name, listItemRec.dateTime] );
+      tx.executeSql( 'INSERT INTO listitem (listid, name, datetime) VALUES (?,?,?)', [listItemRec.listId, listItemRec.name, listItemRec.dateTime], (t, r) => console.log(t) );
     },
-    (t, error) => { console.log("db error insertListItem"); console.log(error);},
-    (t, success) => { successFunc() }
+    (_, error) => { console.log("db error insertListItem"); console.log(error);},
+    (_, success) => { successFunc() }
   )
-}
+};
 
 const DBDeleteListItemsFromList = ( listId, callBackFunc ) => {
   db.transaction(
@@ -112,20 +113,20 @@ const DBDeleteListItemsFromList = ( listId, callBackFunc ) => {
     },
     (t, error) => { console.log("db error deleting list items"); console.log(error) },
     (_t, _success) => { callBackFunc(); console.log("Deleted event")}
-  );
-}
+  )
+};
 
 const DBDropDatabaseTablesAsync = async () => {
   return new Promise((resolve, reject) => {
     db.transaction(tx => {
-      tx.executeSql(
-        tableDropTables, [],
-        (_, result) => { resolve(result) },
-        (_, error) => { console.log("error dropping tables"); reject(error) }
-      )
-    })
+        tx.executeSql('DROP TABLE IF EXISTS listitem', []),
+        tx.executeSql('DROP TABLE IF EXISTS list', [])      
+      },
+      (_, error) => { console.log("db error dropping tables"); console.log(error); reject(error) },
+      (_, success) => { resolve(success)}
+    )
   })
-}
+};
 
 const DBSetupDatabaseAsync = async () => {
   return new Promise((resolve, reject) => {

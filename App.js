@@ -14,11 +14,6 @@ const App = () => {
 
     return (
       <DrawerStack />
-      // <EventsContextProvider>
-      //   <ActionSheetProvider>
-      //     <ToDoStack />
-      //   </ActionSheetProvider>
-      // </EventsContextProvider>
     );
   } else {
     return (

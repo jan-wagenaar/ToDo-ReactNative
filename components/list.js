@@ -9,18 +9,16 @@ const List = ({items}) => {
         data={items}
         renderItem={ListItem}
         keyExtractor={item => item.id}
+        style={styles.list}
       />
     )
 };
 
 const styles = StyleSheet.create({
-    input: {
-        height: 40,
-        margin: 12,
-        marginBottom: 32,
-        borderWidth: 1,
-        padding: 10,
-    },
+    list: {
+        // flex: 1,
+        width: '100%'
+    }
 });
 
 export default List;

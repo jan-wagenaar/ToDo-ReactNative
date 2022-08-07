@@ -14,8 +14,14 @@ export const tableSetupListItemScript = `
     );
 `
 export const tableDropTables = `
-    DROP TABLE IF EXISTS listitem;
-    DROP TABLE IF EXISTS list;
+    DROP TABLE IF EXISTS listitem
+    DROP TABLE IF EXISTS list
 `
 
-export const getListsScript = `SELECT * FROM list`
+export const getListsScript = `SELECT * FROM list`;
+
+export const insertListScript = `
+    INSERT INTO list (name, datetime) 
+    values (? , ?)
+    returning id;
+`;
