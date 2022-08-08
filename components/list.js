@@ -3,11 +3,11 @@ import { View, StyleSheet, Text, TextInput, FlatList } from "react-native";
 
 import ListItem from "./listitem";
 
-const List = ({items}) => {
+const List = ({ items, refreshFunc }) => {
     return (
     <FlatList
         data={items}
-        renderItem={ListItem}
+        renderItem={(renderItem) => <ListItem item={renderItem.item} refreshFunc={refreshFunc} />}
         keyExtractor={item => item.id}
         style={styles.list}
       />
@@ -16,7 +16,6 @@ const List = ({items}) => {
 
 const styles = StyleSheet.create({
     list: {
-        // flex: 1,
         width: '100%'
     }
 });

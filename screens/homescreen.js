@@ -10,6 +10,7 @@ const HomeScreen = ({ route }) => {
   const [list, setList] = useState({id: 0, name: '', datetime: ''});
   const [listItems, setListItems] = useState([]);
 
+  console.log(listItems)
   const { listId } = route.params;
 
   useEffect(() => {
@@ -36,7 +37,10 @@ const HomeScreen = ({ route }) => {
     >
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <View style={styles.inner}>
-          <List items={listItems}/>
+          <List 
+            items={listItems}
+            refreshFunc={updateListItems}
+          />
           <ListItemInput 
             listId={listId} 
             refreshFunc={updateListItems}
@@ -52,7 +56,6 @@ const styles = StyleSheet.create({
     flex: 1
   },
   inner: {
-    padding: 24,
     flex: 1,
     justifyContent: "space-around"
   },

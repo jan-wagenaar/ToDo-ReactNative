@@ -1,11 +1,17 @@
 import React from "react";
-import { View, StyleSheet, Text, TextInput, FlatList } from "react-native";
+import { View, StyleSheet, Text, Pressable } from "react-native";
 
-const ListItem = ({ item }) => {
+import useLists from "../hooks/useLists";
+
+const ListItem = ({ item, refreshFunc }) => {
+    const { toggleListItem } = useLists();
+
     return (
-        <View style={styles.container}>
-            <Text style={styles.title}>{item.name}</Text>
-        </View>
+        <Pressable onPress={() => toggleListItem(item.id, refreshFunc)}>
+            <View style={styles.container}>
+                <Text style={[styles.title, item.is_completed ? styles.itemCompleted : null]}>{item.name}</Text>
+            </View>
+        </Pressable>
     )
 };
 
@@ -21,6 +27,9 @@ const styles = StyleSheet.create({
     },
     title: {
         fontSize: 18,
+    },
+    itemCompleted: {
+        textDecorationLine: 'line-through'
     },
     right: {
         flexDirection: 'row',

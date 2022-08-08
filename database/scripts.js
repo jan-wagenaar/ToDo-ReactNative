@@ -1,16 +1,17 @@
 export const tableSetupScript = `
-    CREATE TABLE IF NOT EXISTS list (
+    CREATE TABLE list (
         id INTEGER primary key NOT NULL, 
         name TEXT, 
         datetime TEXT
     );
 `
 export const tableSetupListItemScript = `
-    CREATE TABLE IF NOT EXISTS listitem (
+    CREATE TABLE listitem (
         id INTEGER primary key NOT NULL,
         listid INTEGER REFERENCES list(id),
-        name TEXT, 
-        datetime TEXT
+        name TEXT NOT NULL CHECK(name <> 0), 
+        is_completed BOOLEAN DEFAULT 0 CHECK (is_completed IN (0, 1)),
+        datetime TEXT DEFAULT CURRENT_TIMESTAMP
     );
 `
 export const tableDropTables = `

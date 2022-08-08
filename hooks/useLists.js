@@ -7,7 +7,8 @@ const useLists = () => {
         DBGetListById,
         DBGetListItems,
         DBInsertList,
-        DBInsertListItem
+        DBInsertListItem,
+        DBToggleListItem
     } = database
 
     const getLists = (setListsFunc) => {
@@ -34,8 +35,9 @@ const useLists = () => {
         return DBInsertListItem(listItemRec, successFunc);
     }
 
-    const listItemToggle = (listItemId, successFunc) => {
-        
+    const toggleListItem = (listItemId, successFunc) => {
+        console.log('toggling')
+        return DBToggleListItem(listItemId, successFunc)
     }
 
     return {
@@ -43,7 +45,8 @@ const useLists = () => {
         getListById,
         getListItems,
         insertList,
-        insertListItem
+        insertListItem,
+        toggleListItem
     }
 }
 
