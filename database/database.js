@@ -36,6 +36,19 @@ const DBGetLists = (setListsFunc) => {
   })
 };
 
+const DBGetFirstListId = (successFunc) => {
+  db.transaction(
+    tx => {
+      tx.executeSql(
+        'SELECT id FROM list ORDER BY datetime DESC LIMIT 1',
+        [],
+        (_, { rows: { _array } }) => { successFunc(_array[0]) },
+        (_, error) => { console.log("error retrieving list table"); console.log(error) }
+      );
+    }
+  );
+}
+
 const DBGetListById = (id, setListFunc) => {
   return new Promise((resolve, reject) => {
     db.transaction(
@@ -163,6 +176,7 @@ const DBSetupListsAsync = async () => {
 
 export const database = {
   DBGetLists,
+  DBGetFirstListId,
   DBInsertList,
   DBUpdateListById,
   DBGetListById,

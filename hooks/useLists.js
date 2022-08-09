@@ -4,6 +4,7 @@ import { database } from '../database/database'
 const useLists = () => { 
   const {
         DBGetLists,
+        DBGetFirstListId,
         DBGetListById,
         DBGetListItems,
         DBInsertList,
@@ -14,6 +15,10 @@ const useLists = () => {
     const getLists = (setListsFunc) => {
         return DBGetLists(setListsFunc);
     }
+
+    const getFirstListId = (successFunc) => {
+        return DBGetFirstListId(successFunc);
+    };
 
     const getListById = (id, setListFunc) => {
         return DBGetListById(id, setListFunc);
@@ -36,12 +41,12 @@ const useLists = () => {
     }
 
     const toggleListItem = (listItemId, successFunc) => {
-        console.log('toggling')
         return DBToggleListItem(listItemId, successFunc)
     }
 
     return {
         getLists,
+        getFirstListId,
         getListById,
         getListItems,
         insertList,

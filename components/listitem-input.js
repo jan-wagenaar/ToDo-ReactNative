@@ -9,7 +9,7 @@ const ListItemInput = ({ listId, refreshFunc }) => {
 
     const insertNewListItem = () => {
         insertListItem({ listId: listId, name: itemName, dateTime: '2022-07-24 12:00:00' }, refreshFunc);
-        onChangeItemName('')
+        onChangeItemName()
     };
 
     return (

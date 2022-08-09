@@ -1,21 +1,26 @@
 import React, { useEffect, useState } from "react";
 import { Platform, KeyboardAvoidingView, TouchableWithoutFeedback, StyleSheet, Keyboard, Button, Text, TextInput, View } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 import useLists from "../hooks/useLists";
 import List from "../components/list";
 import ListItemInput from "../components/listitem-input";
 
 const HomeScreen = ({ route }) => {
-  const { getListById, getListItems } = useLists();
+  const { getFirstListId, getListById, getListItems } = useLists();
   const [list, setList] = useState({id: 0, name: '', datetime: ''});
   const [listItems, setListItems] = useState([]);
 
-  console.log(listItems)
+  const navigation = useNavigation();
   const { listId } = route.params;
 
   useEffect(() => {
-    updateList();
-    updateListItems();
+    if(listId === 0) {
+      getFirstListId(result => navigation.navigate('Home', { listId: result.id }));
+    } else {
+      updateList();
+      updateListItems();
+    }
   }, [listId] )
 
   const updateList = () => {

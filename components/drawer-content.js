@@ -14,7 +14,6 @@ const DrawerContent = (props) => {
 
   const setupNewList = () => {
     insertList((id) => {
-      console.log(id)
       getLists((listsArray) => { setLists(listsArray)});
       props.navigation.navigate('Home', { listId: id })
     });
@@ -22,7 +21,6 @@ const DrawerContent = (props) => {
   
   const dropTables = async () => {
     await database.DBDropDatabaseTablesAsync();
-    console.log('Dropped')
   }
 
     return (
