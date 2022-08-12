@@ -6,7 +6,7 @@ import useLists from "../hooks/useLists";
 import List from "../components/list";
 import ListItemInput from "../components/listitem-input";
 
-const HomeScreen = ({ route }) => {
+const TodoList = ({ route }) => {
   const { getFirstListId, getListById, getListItems } = useLists();
   const [list, setList] = useState({id: 0, name: '', datetime: ''});
   const [listItems, setListItems] = useState([]);
@@ -58,7 +58,8 @@ const HomeScreen = ({ route }) => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
+    backgroundColor: '#e4e0fd',
   },
   inner: {
     flex: 1,
@@ -74,4 +75,4 @@ const styles = StyleSheet.create({
   }
 })
 
-  export default HomeScreen;
+  export default TodoList;

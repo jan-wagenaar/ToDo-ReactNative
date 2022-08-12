@@ -49,14 +49,29 @@ const DBGetFirstListId = (successFunc) => {
   );
 }
 
-const DBGetListById = (id, setListFunc) => {
+const DBGetFirstListIdAsync = () => {
+  return new Promise((resolve, reject) => {
+    db.transaction(
+      tx => {
+        tx.executeSql(
+          'SELECT id FROM list ORDER BY datetime DESC LIMIT 1',
+          [],
+          (_, { rows: { _array } }) => { resolve(_array[0]) },
+          (_, error) => { console.log("error retrieving list table"); reject(error) }
+          );
+      }
+    );
+  });
+}
+
+const DBGetListById = (id) => {
   return new Promise((resolve, reject) => {
     db.transaction(
       tx => {
         tx.executeSql(
           'SELECT * FROM list WHERE list.id = ?',
           [id],
-          (_, { rows: { _array } }) => { resolve(setListFunc(_array[0])) },
+          (_, { rows: { _array } }) => { resolve(_array[0]) },
           (_, error) => { console.log("error retrieving list table"); reject(error) }
         );
       }
@@ -177,6 +192,7 @@ const DBSetupListsAsync = async () => {
 export const database = {
   DBGetLists,
   DBGetFirstListId,
+  DBGetFirstListIdAsync,
   DBInsertList,
   DBUpdateListById,
   DBGetListById,

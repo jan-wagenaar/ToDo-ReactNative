@@ -1,9 +1,14 @@
 import React from 'react';
 import * as SplashScreen from 'expo-splash-screen';
 
+import { ListsContextProvider } from './context/lists-context';
 import useDatabase from './hooks/useDatabase';
 import DrawerStack from './components/drawer-stack';
 import ErrorMessage from './components/error-message';
+
+const initialList = {
+  id: 0
+}
 
 const App = () => {
   SplashScreen.preventAutoHideAsync(); //don't let the splash screen hide
@@ -13,7 +18,11 @@ const App = () => {
     SplashScreen.hideAsync();
 
     return (
-      <DrawerStack />
+      <ListsContextProvider
+        initialList={initialList}
+      >
+        <DrawerStack />
+      </ListsContextProvider>
     );
   } else {
     return (
