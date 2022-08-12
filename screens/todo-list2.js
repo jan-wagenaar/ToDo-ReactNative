@@ -8,34 +8,8 @@ import List from "../components/list";
 import ListItemInput from "../components/listitem-input";
 
 const TodoList = ({ route }) => {
-  const { getFirstListId, getListById, getListItems } = useLists();
-  const { listItems } = useContext(ListsContext);
-  const [list, setList] = useState({id: 0, name: '', datetime: ''});
-
-  const navigation = useNavigation();
-  const { listId } = route.params;
-
-  useEffect(() => {
-    if(listId === 0) {
-      getFirstListId(result => navigation.navigate('Home', { listId: result.id }));
-    } else {
-      updateList();
-      updateListItems();
-    }
-  }, [listId] )
-
-  const updateList = () => {
-    getListById(listId, (listRec) => {
-      if(typeof listRec != 'undefined') {
-        setList(listRec);
-      }
-    });  
-  };
-
-  const updateListItems = () => {
-    // getListItems(listId, (listItems) => setListItems(listItems));
-  };
-
+  const { currentListItems, currentList, refreshCurrentListItems } = useContext(ListsContext);
+  
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -44,12 +18,12 @@ const TodoList = ({ route }) => {
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <View style={styles.inner}>
           <List 
-            items={listItems}
-            refreshFunc={updateListItems}
+            items={currentListItems}
+            refreshFunc={refreshCurrentListItems}
           />
           <ListItemInput 
-            listId={listId} 
-            refreshFunc={updateListItems}
+            listId={currentList.id} 
+            refreshFunc={refreshCurrentListItems}
           />
         </View>
       </TouchableWithoutFeedback>

@@ -18,7 +18,7 @@ export const ListsContextProvider = props => {
 
   const [lists, setLists] = useState(initialLists);
   const [currentList, setCurrentList] = useState(initialList);
-  const [listItems, setListItems] = useState(initialListItems);
+  const [currentListItems, setCurrentListItems] = useState(initialListItems);
 
   useEffect(() => {
     refreshLists();
@@ -36,7 +36,7 @@ export const ListsContextProvider = props => {
     console.log("Initial list rec")
     console.log(initialListRec);
     setCurrentList(initialListRec);
-    refreshListItems(id)
+    refreshCurrentListItems(id)
   }
 
   const refreshLists = () => {
@@ -47,8 +47,8 @@ export const ListsContextProvider = props => {
     database.DBGetListById(id, (list) => setCurrentList(list));
   }
 
-  const refreshListItems = (id) => {
-    database.DBGetListItems(id, (listItems) => setListItems(listItems));
+  const refreshCurrentListItems = (id) => {
+    database.DBGetListItems(id || currentList.id, (listItems) => setCurrentListItems(listItems));
   }
 
 
@@ -56,7 +56,10 @@ export const ListsContextProvider = props => {
   const listsContext = {
     lists,
     currentList,
-    listItems
+    currentListItems,
+    refreshLists,
+    refreshCurrentList,
+    refreshCurrentListItems
   };
 
   // pass the value in provider and return
