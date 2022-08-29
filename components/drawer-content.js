@@ -1,8 +1,10 @@
 import React, {useState, useEffect} from 'react';
-import { DrawerContentScrollView, DrawerItem } from '@react-navigation/drawer';
+import { Text } from 'react-native';
+import { DrawerContentScrollView } from '@react-navigation/drawer';
 
 import useLists from '../hooks/useLists';
 import { database } from '../database/database'
+import StyledDrawerItem from './styled-drawer-item';
   
 const DrawerContent = (props) => {
   const { getLists, insertList } = useLists();
@@ -26,22 +28,22 @@ const DrawerContent = (props) => {
     return (
       <>
         <DrawerContentScrollView {...props}>
+          <Text 
+              style= {{ color: '#fff', fontSize: 22}}>
+            List
+          </Text>
           {lists.map((object) => {
             return (
-              <DrawerItem
+              <StyledDrawerItem
                 key={object.id}
                 label={object.name}
                 onPress={() => props.navigation.navigate('Home', { listId: object.id })}
               />
             )
           })}
-          <DrawerItem
+          <StyledDrawerItem
                 label="+ New list"
                 onPress={setupNewList}
-          />
-                    <DrawerItem
-                label="Drop tables"
-                onPress={dropTables}
           />
         </DrawerContentScrollView>
       </>

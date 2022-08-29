@@ -14,7 +14,11 @@ const DrawerStack = () => {
       <Drawer.Navigator 
         initialRouteName="Home"
         drawerContent={(props) => <DrawerContent {...props} />}
-        drawerStyle={{ height: 100 }}
+        screenOptions={{
+          drawerStyle: {
+            backgroundColor: '#000',
+          },
+        }}
     >
         <Drawer.Screen 
           name="Home" 

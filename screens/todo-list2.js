@@ -34,7 +34,7 @@ const TodoList = ({ route }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#e4e0fd',
+    backgroundColor: '#3441fc',
   },
   inner: {
     flex: 1,
