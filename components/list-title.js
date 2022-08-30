@@ -37,10 +37,14 @@ const styles = StyleSheet.create({
         width: '100%',
         fontSize: 18,
         padding: 12,
-        borderRadius: 5
+        paddingLeft: 18,
+        paddingRight: 18,
+        borderRadius: 5,
+        color: '#fff'
     },
     inputEditing: {
-        backgroundColor: '#e4e0fd'
+        backgroundColor: '#757bd6',
+        color: '#000'
     }
 });
 

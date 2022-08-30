@@ -18,6 +18,10 @@ const DrawerStack = () => {
           drawerStyle: {
             backgroundColor: '#000',
           },
+          headerStyle: { 
+            backgroundColor: '#000',
+            height: 120
+          }
         }}
     >
         <Drawer.Screen 

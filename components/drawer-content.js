@@ -29,8 +29,8 @@ const DrawerContent = (props) => {
       <>
         <DrawerContentScrollView {...props}>
           <Text 
-              style= {{ color: '#fff', fontSize: 22}}>
-            List
+              style={{ color: '#fff', fontSize: 32, margin: 22}}>
+            Lists
           </Text>
           {lists.map((object) => {
             return (
@@ -42,8 +42,9 @@ const DrawerContent = (props) => {
             )
           })}
           <StyledDrawerItem
-                label="+ New list"
+                label="+ Create list"
                 onPress={setupNewList}
+                style='button'
           />
         </DrawerContentScrollView>
       </>
