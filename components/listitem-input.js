@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, Button, Text, TextInput, View, SafeAreaView } from 'react-native';
+import { Platform, KeyboardAvoidingView, StyleSheet, Button, Text, TextInput, View, SafeAreaView } from 'react-native';
 
 import useLists from "../hooks/useLists";
 
@@ -13,7 +13,10 @@ const ListItemInput = ({ listId, refreshFunc }) => {
     };
 
     return (
-        <SafeAreaView>
+        <KeyboardAvoidingView
+            behavior={Platform.OS === "ios" ? "padding" : "height"}
+            style={styles.view}
+        >
             <View style={styles.container}>
                 <TextInput
                 style={styles.textInput}
@@ -26,25 +29,29 @@ const ListItemInput = ({ listId, refreshFunc }) => {
                         onPress={insertNewListItem}
                         title="Add item"
                         color="#841584"
-
-                    />
+                            />
+                    </View>
                 </View>
-          </View>
-        </SafeAreaView>
+          </KeyboardAvoidingView> 
     )
 };
 
 const styles = StyleSheet.create({
+    view: {
+        flex: 1
+    },
     container: {
+        display: 'flex',
         flexDirection: 'row',
-        padding: 24
+        padding: 24,
+        backgroundColor: '#fff'
     },
     textInput: {
         flex: 1,
         height: 40,
-        borderColor: "#000000",
+        borderColor: "#000",
         borderBottomWidth: 1,
-        marginBottom: 64
+        // marginBottom: 64
       },
   })
   

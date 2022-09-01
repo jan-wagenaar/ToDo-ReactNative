@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
-import { Platform, KeyboardAvoidingView, TouchableWithoutFeedback, StyleSheet, Keyboard, Button, Text, TextInput, View } from 'react-native';
+import { Platform, KeyboardAvoidingView, TouchableWithoutFeedback, StyleSheet, Keyboard, Button, Text, TextInput, View, SafeAreaView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 import { ListsContext } from "../context/lists-context";
@@ -11,9 +11,12 @@ const TodoList = ({ route }) => {
   const { currentListItems, currentList, refreshCurrentListItems } = useContext(ListsContext);
   
   return (
-    <KeyboardAvoidingView
-      behavior={Platform.OS === "ios" ? "padding" : "height"}
-      style={styles.container}
+    // // <KeyboardAvoidingView
+    //   behavior={Platform.OS === "ios" ? "padding" : "height"}
+    //   
+    // >
+    <View 
+    style={styles.container}
     >
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <View style={styles.inner}>
@@ -27,7 +30,7 @@ const TodoList = ({ route }) => {
           />
         </View>
       </TouchableWithoutFeedback>
-    </KeyboardAvoidingView>
+      </View>
   )
 };
 

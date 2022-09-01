@@ -15,7 +15,7 @@ const DrawerItemLabel = ({ label, focused, style}) => {
     return (
         <View style= { style == 'button' ? { justifyContent: 'center', alignItems: 'center', padding: 12, backgroundColor: '#ff7a28', borderRadius: 30 } : undefined}>
         <Text 
-            style= {[{ color: '#fff', fontSize: 18}, style == 'button' ? { fontWeight: 'bold' } : undefined ]}>
+            style= {{ color: '#fff', fontSize: 18}}>
             {label}
         </Text>
         </View>
