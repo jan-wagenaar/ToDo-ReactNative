@@ -2,6 +2,7 @@ import React from "react";
 import { Platform, KeyboardAvoidingView, StyleSheet, Button, Text, TextInput, View, SafeAreaView } from 'react-native';
 
 import useLists from "../hooks/useLists";
+import Checkbox from "./checkbox";
 
 const ListItemInput = ({ listId, refreshFunc }) => {
     const [itemName, onChangeItemName] = React.useState();
@@ -13,15 +14,13 @@ const ListItemInput = ({ listId, refreshFunc }) => {
     };
 
     return (
-        <KeyboardAvoidingView
-            behavior={Platform.OS === "ios" ? "padding" : "height"}
-            style={styles.view}
-        >
+
             <View style={styles.container}>
+                <Checkbox isChecked={false} />
                 <TextInput
                 style={styles.textInput}
                 onChangeText={onChangeItemName}
-                placeholder="Username"
+                placeholder="Add task"
                 value={itemName}
                 />
                 <View style={styles.btnContainer}>
@@ -32,19 +31,15 @@ const ListItemInput = ({ listId, refreshFunc }) => {
                             />
                     </View>
                 </View>
-          </KeyboardAvoidingView> 
     )
 };
 
 const styles = StyleSheet.create({
-    view: {
-        flex: 1
-    },
     container: {
-        display: 'flex',
         flexDirection: 'row',
         padding: 24,
-        backgroundColor: '#fff'
+        backgroundColor: '#fff',
+        padding: 32,
     },
     textInput: {
         flex: 1,

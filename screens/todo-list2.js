@@ -11,26 +11,30 @@ const TodoList = ({ route }) => {
   const { currentListItems, currentList, refreshCurrentListItems } = useContext(ListsContext);
   
   return (
-    // // <KeyboardAvoidingView
-    //   behavior={Platform.OS === "ios" ? "padding" : "height"}
-    //   
-    // >
-    <View 
-    style={styles.container}
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+      keyboardVerticalOffset={120}
+      style={styles.flexOne}
     >
-    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+    <View 
+      style={styles.container}
+    >
+    <TouchableWithoutFeedback 
+      onPress={Keyboard.dismiss}
+      >
       <View style={styles.inner}>
           <List 
             items={currentListItems}
             refreshFunc={refreshCurrentListItems}
           />
-          <ListItemInput 
+        </View>
+      </TouchableWithoutFeedback>
+                <ListItemInput 
             listId={currentList.id} 
             refreshFunc={refreshCurrentListItems}
           />
-        </View>
-      </TouchableWithoutFeedback>
       </View>
+      </KeyboardAvoidingView>
   )
 };
 
@@ -38,10 +42,14 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#3441fc',
+    
+  },
+  flexOne: {
+    flex: 1
   },
   inner: {
     flex: 1,
-    justifyContent: "space-around"
+    justifyContent: "space-around",
   },
   header: {
     fontSize: 36,
