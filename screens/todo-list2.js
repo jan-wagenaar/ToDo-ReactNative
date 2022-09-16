@@ -3,12 +3,15 @@ import { Platform, KeyboardAvoidingView, TouchableWithoutFeedback, StyleSheet, K
 import { useNavigation } from '@react-navigation/native';
 
 import { ListsContext } from "../context/lists-context";
-import useLists from "../hooks/useLists";
 import List from "../components/list";
 import ListItemInput from "../components/listitem-input";
 
-const TodoList = ({ route }) => {
-  const { currentListItems, currentList, refreshCurrentListItems } = useContext(ListsContext);
+const TodoList = () => {
+  const { 
+    currentListItems, 
+    currentList, 
+    refreshCurrentListItems 
+  } = useContext(ListsContext);
   
   return (
     <KeyboardAvoidingView
@@ -29,7 +32,7 @@ const TodoList = ({ route }) => {
           />
         </View>
       </TouchableWithoutFeedback>
-                <ListItemInput 
+          <ListItemInput 
             listId={currentList.id} 
             refreshFunc={refreshCurrentListItems}
           />

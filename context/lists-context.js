@@ -28,13 +28,8 @@ export const ListsContextProvider = props => {
   }, [] )
 
   const setupList = async () => {
-
     const { id } = await database.DBGetFirstListIdAsync();
-    console.log("Initial list id")
-    console.log(id);
     const initialListRec = await database.DBGetListById(id);
-    console.log("Initial list rec")
-    console.log(initialListRec);
     setCurrentList(initialListRec);
     refreshCurrentListItems(id)
   }
@@ -43,8 +38,9 @@ export const ListsContextProvider = props => {
     database.DBGetLists((lists) => setLists(lists));
   }
 
-  const refreshCurrentList = (id) => {
-    database.DBGetListById(id, (list) => setCurrentList(list));
+  const refreshCurrentList = async (id) => {
+    const list = await database.DBGetListById(id);
+    setCurrentList(list);
   }
 
   const refreshCurrentListItems = (id) => {

@@ -1,28 +1,47 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext } from 'react';
 import { Text } from 'react-native';
 import { DrawerContentScrollView } from '@react-navigation/drawer';
 
+import { ListsContext } from "../context/lists-context";
 import useLists from '../hooks/useLists';
 import { database } from '../database/database'
 import StyledDrawerItem from './styled-drawer-item';
   
 const DrawerContent = (props) => {
-  const { getLists, insertList } = useLists();
-  const [lists, setLists] = useState([]);
+  const { lists, currentList, refreshLists, refreshCurrentList, refreshCurrentListItems } = useContext(ListsContext);
+  const { insertList } = useLists();
 
-  useEffect(() => {
-    getLists((listsArray) => { setLists(listsArray)});
-  }, [] )
 
   const setupNewList = () => {
     insertList((id) => {
-      getLists((listsArray) => { setLists(listsArray)});
-      props.navigation.navigate('Home', { listId: id })
+      refreshLists();
+      refreshCurrentList(id);
+      refreshCurrentListItems(id);
+      props.navigation.navigate('Home');
     });
   }
-  
-  const dropTables = async () => {
-    await database.DBDropDatabaseTablesAsync();
+
+  const changeList = async (listId) => {
+    await refreshCurrentList(listId);
+    await refreshCurrentListItems(listId);
+    props.navigation.navigate('Home');
+  }
+
+  const renderLists = () => {
+    if(lists) {
+      return (
+        lists.map((object) => {
+          return (
+            <StyledDrawerItem
+              key={object.id}
+              label={object.name}
+              onPress={() => changeList(object.id)}
+              style={[currentList.id === object.id ? { color: '#fff', fontWeight: '600' } : undefined ]}
+            />
+          )
+        })
+      )
+    }
   }
 
     return (
@@ -32,19 +51,11 @@ const DrawerContent = (props) => {
               style={{ color: '#fff', fontSize: 32, margin: 22}}>
             Lists
           </Text>
-          {lists.map((object) => {
-            return (
-              <StyledDrawerItem
-                key={object.id}
-                label={object.name}
-                onPress={() => props.navigation.navigate('Home', { listId: object.id })}
-              />
-            )
-          })}
+          {renderLists()}
           <StyledDrawerItem
                 label="+ Create list"
                 onPress={setupNewList}
-                style='button'
+                type='button'
           />
         </DrawerContentScrollView>
       </>

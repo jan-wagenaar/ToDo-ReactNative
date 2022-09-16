@@ -18,35 +18,30 @@ const ListItemInput = ({ listId, refreshFunc }) => {
             <View style={styles.container}>
                 <Checkbox isChecked={false} />
                 <TextInput
-                style={styles.textInput}
-                onChangeText={onChangeItemName}
-                placeholder="Add task"
-                value={itemName}
+                    style={styles.textInput}
+                    onChangeText={onChangeItemName}
+                    onSubmitEditing={insertNewListItem}
+                    placeholder="Add task"
+                    value={itemName}
                 />
-                <View style={styles.btnContainer}>
-                    <Button
-                        onPress={insertNewListItem}
-                        title="Add item"
-                        color="#841584"
-                            />
-                    </View>
-                </View>
+            </View>
     )
 };
 
 const styles = StyleSheet.create({
     container: {
         flexDirection: 'row',
+        alignItems: 'center',
         padding: 24,
         backgroundColor: '#fff',
         padding: 32,
     },
     textInput: {
         flex: 1,
-        height: 40,
+        height: 30,
+        fontSize: 18,
         borderColor: "#000",
         borderBottomWidth: 1,
-        // marginBottom: 64
       },
   })
   

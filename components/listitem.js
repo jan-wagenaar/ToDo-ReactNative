@@ -12,7 +12,6 @@ const ListItem = ({ item, refreshFunc }) => {
             <Pressable 
                 style={styles.toggle}
                 onPress={() => toggleListItem(item.id, refreshFunc)}
-
             >
                 <Checkbox isChecked={item.is_completed} />
                 <Text 
@@ -31,9 +30,12 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'space-between',
         padding: 16,
+        margin: 10,
+        marginBottom: 0,
         backgroundColor: '#e4e0fd',
         borderBottomWidth: 1,
-        borderBottomColor: '#dee2e6'
+        borderBottomColor: '#dee2e6',
+        borderRadius: 5,
     },
     toggle: {
         display: 'flex',

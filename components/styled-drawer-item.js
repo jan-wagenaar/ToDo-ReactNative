@@ -2,20 +2,29 @@ import React from "react";
 import { DrawerItem } from '@react-navigation/drawer';
 import { View, Text } from 'react-native';
 
-const StyledDrawerItem = ({ label, style, onPress}) => {
+const StyledDrawerItem = ({ label, type, style, onPress}) => {
     return (
         <DrawerItem
-              label={() => <DrawerItemLabel label={label} style={style}/>}
+              label={() => <DrawerItemLabel label={label} type={type} style={style}/>}
               onPress={onPress}
             />
     )
 };
 
-const DrawerItemLabel = ({ label, focused, style}) => {
+const DrawerItemLabel = ({ label, type, style}) => {
     return (
-        <View style= { style == 'button' ? { justifyContent: 'center', alignItems: 'center', padding: 12, backgroundColor: '#ff7a28', borderRadius: 30 } : undefined}>
+        <View style={ 
+            type == 'button' ? 
+            { 
+                justifyContent: 'center', 
+                alignItems: 'center', 
+                padding: 12, 
+                backgroundColor: '#ff7a28', 
+                borderRadius: 30 
+                } 
+            : undefined}>
         <Text 
-            style= {{ color: '#fff', fontSize: 18}}>
+            style={[{color: '#d1c7ff', fontSize: 18}, style]}>
             {label}
         </Text>
         </View>
