@@ -64,14 +64,14 @@ const DBGetFirstListIdAsync = () => {
   });
 }
 
-const DBGetListById = (id) => {
+const DBGetListById = (id, successFunc) => {
   return new Promise((resolve, reject) => {
     db.transaction(
       tx => {
         tx.executeSql(
           'SELECT * FROM list WHERE list.id = ?',
           [id],
-          (_, { rows: { _array } }) => { resolve(_array[0]) },
+          (_, { rows: { _array } }) => { resolve(successFunc(_array[0])) },
           (_, error) => { console.log("error retrieving list table"); reject(error) }
         );
       }
@@ -88,12 +88,12 @@ const DBInsertList = (listRec, successFunc) => {
   )
 }
 
-const DBUpdateListById = (listRec, successFunc) => {
+const DBUpdateListById = (listRec) => {
   db.transaction( tx => {
       tx.executeSql( 'UPDATE list SET name = ?,  datetime = ? WHERE ID = ?', [listRec.name, listRec.datetime, listRec.id] );
     },
     (t, error) => { console.log("db error insertList"); console.log(error);},
-    (t, success) => { successFunc() }
+    (t, success) => { }
   )
 }
 

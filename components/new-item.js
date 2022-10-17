@@ -5,12 +5,12 @@ import useLists from "../hooks/useLists";
 import Checkbox from "./checkbox";
 
 const ListItemInput = ({ listId, refreshFunc }) => {
-    const [itemName, onChangeItemName] = React.useState();
+    const [itemName, onChangeItemName] = React.useState('');
     const { insertListItem } = useLists();
 
     const insertNewListItem = () => {
         insertListItem({ listId: listId, name: itemName, dateTime: '2022-07-24 12:00:00' }, refreshFunc);
-        onChangeItemName()
+        onChangeItemName('')
     };
 
     return (

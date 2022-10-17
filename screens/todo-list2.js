@@ -4,7 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 
 import { ListsContext } from "../context/lists-context";
 import List from "../components/list";
-import ListItemInput from "../components/listitem-input";
+import ListItemInput from "../components/new-item";
 
 const TodoList = () => {
   const { 

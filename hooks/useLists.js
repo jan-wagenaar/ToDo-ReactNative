@@ -8,6 +8,7 @@ const useLists = () => {
         DBGetListById,
         DBGetListItems,
         DBInsertList,
+        DBUpdateListById,
         DBInsertListItem,
         DBToggleListItem
     } = database
@@ -33,7 +34,18 @@ const useLists = () => {
             name: 'New list',
             datetime: '2022-07-24 12:00:00'
         }
+        
         return DBInsertList(newListRec, successFunc);
+    }
+
+    const updateList = (listName, listId) => {
+        const updatedListRec = {
+            id: listId,
+            name: listName,
+            datetime: '2022-07-24 12:00:00'
+        }
+        
+        return DBUpdateListById(updatedListRec)
     }
 
     const insertListItem = (listItemRec, successFunc) => {
@@ -50,6 +62,7 @@ const useLists = () => {
         getListById,
         getListItems,
         insertList,
+        updateList,
         insertListItem,
         toggleListItem
     }
