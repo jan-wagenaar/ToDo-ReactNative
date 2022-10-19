@@ -1,5 +1,5 @@
 import React from "react";
-import { View, StyleSheet, Text, Pressable } from "react-native";
+import { View, StyleSheet, Text, Pressable, Vibration } from "react-native";
 
 import useLists from "../hooks/useLists";
 import Checkbox from "./checkbox";
@@ -7,11 +7,16 @@ import Checkbox from "./checkbox";
 const ListItem = ({ item, refreshFunc }) => {
     const { toggleListItem } = useLists();
 
+    const toggleItem = () => {
+        Vibration.vibrate([50]);
+        toggleListItem(item.id, refreshFunc);
+    }
+
     return (
         <View style={styles.container}>
             <Pressable 
                 style={styles.toggle}
-                onPress={() => toggleListItem(item.id, refreshFunc)}
+                onPress={toggleItem}
             >
                 <Checkbox isChecked={item.is_completed} />
                 <Text 

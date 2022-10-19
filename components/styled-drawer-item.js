@@ -24,7 +24,7 @@ const DrawerItemLabel = ({ label, type, style}) => {
                 } 
             : undefined}>
         <Text 
-            style={[{color: '#d1c7ff', fontSize: 18}, style]}>
+            style={[{color: '#fff', fontSize: 18}, style]}>
             {label}
         </Text>
         </View>

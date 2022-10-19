@@ -22,6 +22,8 @@ const ListItemInput = ({ listId, refreshFunc }) => {
                     onChangeText={onChangeItemName}
                     onSubmitEditing={insertNewListItem}
                     placeholder="Add task"
+                    placeholderTextColor="#666"
+                    clearButtonMode="while-editing"
                     value={itemName}
                 />
             </View>
@@ -35,13 +37,14 @@ const styles = StyleSheet.create({
         padding: 24,
         backgroundColor: '#fff',
         padding: 32,
+        paddingTop: 20,
+        paddingBottom: 20
     },
     textInput: {
         flex: 1,
-        height: 30,
+        height: 60,
+        marginLeft: 8,
         fontSize: 18,
-        borderColor: "#000",
-        borderBottomWidth: 1,
       },
   })
   

@@ -1,5 +1,6 @@
 import React from 'react';
 import * as SplashScreen from 'expo-splash-screen';
+import { ActionSheetProvider } from '@expo/react-native-action-sheet';
 
 import { ListsContextProvider } from './context/lists-context';
 import useDatabase from './hooks/useDatabase';
@@ -21,7 +22,9 @@ const App = () => {
       <ListsContextProvider
         initialList={initialList}
       >
-        <DrawerStack />
+        <ActionSheetProvider>
+          <DrawerStack />
+        </ActionSheetProvider>
       </ListsContextProvider>
     );
   } else {

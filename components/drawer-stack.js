@@ -5,6 +5,8 @@ import { NavigationContainer } from '@react-navigation/native';
 import TodoList from '../screens/todo-list2';
 import DrawerContent from './drawer-content';
 import ListTitle from './list-title';
+import ListDelete from './listdelete';
+
 
 const Drawer = createDrawerNavigator();
 
@@ -28,7 +30,11 @@ const DrawerStack = () => {
           name="Home" 
           component={TodoList} 
           initialParams={{ listId: 0 }}
-          options={{ headerTitle: (props) => <ListTitle {...props} /> }}
+          options={
+            { 
+              headerTitle: (props) => <ListTitle {...props} />,
+              headerRight: () => <ListDelete />
+          }}
         />
       </Drawer.Navigator>
     </NavigationContainer>

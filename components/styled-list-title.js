@@ -3,7 +3,6 @@ import { View, StyleSheet, TextInput, SafeAreaView } from "react-native";
 
 const StyledListTitle = ({
     listName, 
-    isEditing, 
     startEditingText,
     updateListName,
     saveListName
@@ -11,7 +10,7 @@ const StyledListTitle = ({
     return (
         <View>
             <TextInput
-                style={[styles.input, isEditing ?  styles.inputEditing : null ]}
+                style={styles.input}
                 onChangeText={updateListName}
                 onFocus={startEditingText}
                 onEndEditing={saveListName}
@@ -26,16 +25,12 @@ const StyledListTitle = ({
 const styles = StyleSheet.create({
     input: {
         width: '100%',
-        fontSize: 18,
+        fontSize: 22,
         padding: 12,
         paddingLeft: 18,
         paddingRight: 18,
         borderRadius: 5,
         color: '#fff'
-    },
-    inputEditing: {
-        backgroundColor: '#757bd6',
-        color: '#000'
     }
 });
 
