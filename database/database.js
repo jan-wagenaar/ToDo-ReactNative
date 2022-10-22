@@ -36,27 +36,14 @@ const DBGetLists = (setListsFunc) => {
   })
 };
 
-const DBGetFirstListId = (successFunc) => {
-  db.transaction(
-    tx => {
-      tx.executeSql(
-        'SELECT id FROM list ORDER BY datetime DESC LIMIT 1',
-        [],
-        (_, { rows: { _array } }) => { successFunc(_array[0]) },
-        (_, error) => { console.log("error retrieving list table"); console.log(error) }
-      );
-    }
-  );
-}
-
-const DBGetFirstListIdAsync = () => {
+const DBGetLastListId = () => {
   return new Promise((resolve, reject) => {
     db.transaction(
       tx => {
         tx.executeSql(
           'SELECT id FROM list ORDER BY datetime DESC LIMIT 1',
           [],
-          (_, { rows: { _array } }) => { resolve(_array[0]) },
+          (_, { rows: { _array } }) => { if(_array[0]) {resolve(_array[0].id)} else {resolve(undefined)} },
           (_, error) => { console.log("error retrieving list table"); reject(error) }
           );
       }
@@ -98,14 +85,17 @@ const DBUpdateListById = (listRec) => {
 }
 
 const DBDeleteListById = ( id, callBackFunc ) => {
+  console.log('Deleting list with id ' + id)
   db.transaction(
     tx => {
       tx.executeSql(
+        'DELETE FROM listitem where listitem.listid = (?)', [id])
+      tx.executeSql( 
         'DELETE FROM list WHERE list.ID = (?)', 
         [id]);
     },
-    (t, error) => { console.log("db error deleting event"); console.log(error) },
-    (_t, _success) => { callBackFunc(); console.log("Deleted event")}
+    (t, error) => { console.log("db error deleting list"); console.log(error) },
+    (_t, _success) => { callBackFunc(); console.log("Deleted list")}
   );
 }
 
@@ -191,8 +181,7 @@ const DBSetupListsAsync = async () => {
 
 export const database = {
   DBGetLists,
-  DBGetFirstListId,
-  DBGetFirstListIdAsync,
+  DBGetLastListId,
   DBInsertList,
   DBUpdateListById,
   DBGetListById,

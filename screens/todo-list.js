@@ -1,57 +1,42 @@
-import React, { useEffect, useState } from "react";
-import { Platform, KeyboardAvoidingView, TouchableWithoutFeedback, StyleSheet, Keyboard, Button, Text, TextInput, View } from 'react-native';
+import React, { useEffect, useState, useContext } from "react";
+import { Platform, KeyboardAvoidingView, TouchableWithoutFeedback, StyleSheet, Keyboard, Button, Text, TextInput, View, SafeAreaView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
-import useLists from "../hooks/useLists";
+import { ListsContext } from "../context/lists-context";
 import List from "../components/list";
 import ListItemInput from "../components/new-item";
 
-const TodoList = ({ route }) => {
-  const { getFirstListId, getListById, getListItems } = useLists();
-  const [list, setList] = useState({id: 0, name: '', datetime: ''});
-  const [listItems, setListItems] = useState([]);
-
-  const navigation = useNavigation();
-  const { listId } = route.params;
-
-  useEffect(() => {
-    if(listId === 0) {
-      getFirstListId(result => navigation.navigate('Home', { listId: result.id }));
-    } else {
-      updateList();
-      updateListItems();
-    }
-  }, [listId] )
-
-  const updateList = () => {
-    getListById(listId, (listRec) => {
-      if(typeof listRec != 'undefined') {
-        setList(listRec);
-      }
-    });  
-  };
-
-  const updateListItems = () => {
-    getListItems(listId, (listItems) => setListItems(listItems));
-  };
-
+const TodoList = () => {
+  const { 
+    currentListItems, 
+    currentList, 
+    refreshCurrentListItems 
+  } = useContext(ListsContext);
+  
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}
-      style={styles.container}
+      keyboardVerticalOffset={120}
+      style={styles.flexOne}
     >
-    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-      <View style={styles.inner}>
-          <List 
-            items={listItems}
-            refreshFunc={updateListItems}
-          />
-          <ListItemInput 
-            listId={listId} 
-            refreshFunc={updateListItems}
-          />
-        </View>
-      </TouchableWithoutFeedback>
+      <View 
+        style={styles.container}
+      >
+        <TouchableWithoutFeedback 
+          onPress={Keyboard.dismiss}
+          >
+          <View style={styles.inner}>
+              <List 
+                items={currentListItems}
+                refreshFunc={refreshCurrentListItems}
+              />
+          </View>
+        </TouchableWithoutFeedback>
+        <ListItemInput 
+          listId={currentList?.id} 
+          refreshFunc={refreshCurrentListItems}
+        />
+      </View>
     </KeyboardAvoidingView>
   )
 };
@@ -59,11 +44,15 @@ const TodoList = ({ route }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#e4e0fd',
+    backgroundColor: '#3441fc',
+    
+  },
+  flexOne: {
+    flex: 1
   },
   inner: {
     flex: 1,
-    justifyContent: "space-around"
+    justifyContent: "space-around",
   },
   header: {
     fontSize: 36,

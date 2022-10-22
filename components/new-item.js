@@ -1,5 +1,5 @@
 import React from "react";
-import { Platform, KeyboardAvoidingView, StyleSheet, Button, Text, TextInput, View, SafeAreaView } from 'react-native';
+import { StyleSheet, TextInput, View } from 'react-native';
 
 import useLists from "../hooks/useLists";
 import Checkbox from "./checkbox";
@@ -14,7 +14,6 @@ const ListItemInput = ({ listId, refreshFunc }) => {
     };
 
     return (
-
             <View style={styles.container}>
                 <Checkbox isChecked={false} />
                 <TextInput

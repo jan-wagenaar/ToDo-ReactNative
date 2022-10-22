@@ -8,7 +8,7 @@ const ListItem = ({ item, refreshFunc }) => {
     const { toggleListItem } = useLists();
 
     const toggleItem = () => {
-        Vibration.vibrate([50]);
+        Vibration.vibrate([100]);
         toggleListItem(item.id, refreshFunc);
     }
 

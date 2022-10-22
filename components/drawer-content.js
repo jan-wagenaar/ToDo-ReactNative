@@ -41,6 +41,10 @@ const DrawerContent = (props) => {
           )
         })
       )
+    } else {
+      return (
+        <Text>No lists yet</Text>
+      )
     }
   }
 

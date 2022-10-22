@@ -11,7 +11,6 @@ export const ListsContextProvider = props => {
 
   const {
     initialLists,
-    initialList,
     initialListItems,
     children
   } = props;
@@ -23,16 +22,20 @@ export const ListsContextProvider = props => {
   useEffect(() => {
     refreshLists();
     if(currentList.id === 0) {
-      setupList()
+      setupNextList()
     }
   }, [] )
 
-  const setupList = async () => {
-    const { id } = await database.DBGetFirstListIdAsync();
-    // const initialListRec = await database.DBGetListById(id);
+  const initialList = {
+    id: 0,
+    name: '', 
+    datetime: '1900-01-01 00:00:00'
+  }
+
+  const setupNextList = async () => {
+    const id = await database.DBGetLastListId();
     refreshCurrentList(id)
     refreshCurrentListItems(id);
-
   }
 
   const refreshLists = () => {
@@ -40,11 +43,19 @@ export const ListsContextProvider = props => {
   }
 
   const refreshCurrentList = (id) => {
-    database.DBGetListById(id, (list) => setCurrentList(list));
+    if(id === undefined) {
+      setCurrentList(initialList);
+    } else {
+      database.DBGetListById(id, (list) => setCurrentList(list));
+    }
   }
 
   const refreshCurrentListItems = (id) => {
-    database.DBGetListItems(id || currentList.id, (listItems) => setCurrentListItems(listItems));
+    if(id === undefined) {
+      database.DBGetListItems(0, (listItems) => setCurrentListItems(listItems));
+    } else {
+      database.DBGetListItems(id || currentList.id, (listItems) => setCurrentListItems(listItems));
+    }
   }
 
 
@@ -53,6 +64,7 @@ export const ListsContextProvider = props => {
     lists,
     currentList,
     currentListItems,
+    setupNextList,
     refreshLists,
     refreshCurrentList,
     refreshCurrentListItems

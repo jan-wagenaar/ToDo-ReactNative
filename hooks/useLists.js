@@ -1,14 +1,26 @@
-import React, {useEffect} from 'react';
-import { database } from '../database/database'
+import React, { useContext } from 'react';
+import { database } from '../database/database';
+
+import { ListsContext } from "../context/lists-context";
+
 
 const useLists = () => { 
+    const { 
+        currentListItems, 
+        currentList, 
+        setupNextList,
+        refreshLists,
+        refreshCurrentListItems 
+    } = useContext(ListsContext);
+
   const {
         DBGetLists,
-        DBGetFirstListId,
+        DBGetLastListId,
         DBGetListById,
         DBGetListItems,
         DBInsertList,
         DBUpdateListById,
+        DBDeleteListById,
         DBInsertListItem,
         DBToggleListItem
     } = database
@@ -17,8 +29,8 @@ const useLists = () => {
         return DBGetLists(setListsFunc);
     }
 
-    const getFirstListId = (successFunc) => {
-        return DBGetFirstListId(successFunc);
+    const getLastListId = (successFunc) => {
+        return DBGetLastListId(successFunc);
     };
 
     const getListById = (id, setListFunc) => {
@@ -36,7 +48,7 @@ const useLists = () => {
         }
         
         return DBInsertList(newListRec, successFunc);
-    }
+    };
 
     const updateList = (listName, listId) => {
         const updatedListRec = {
@@ -46,26 +58,36 @@ const useLists = () => {
         }
         
         return DBUpdateListById(updatedListRec)
-    }
+    };
+
+    const deleteList = () => {
+        const OnAfterDelete = () => {
+            refreshLists();
+            setupNextList();
+        };
+
+        DBDeleteListById(currentList.id, OnAfterDelete);
+    };
 
     const insertListItem = (listItemRec, successFunc) => {
         return DBInsertListItem(listItemRec, successFunc);
-    }
+    };
 
     const toggleListItem = (listItemId, successFunc) => {
         return DBToggleListItem(listItemId, successFunc)
-    }
+    };
 
     return {
         getLists,
-        getFirstListId,
+        getLastListId,
         getListById,
         getListItems,
         insertList,
         updateList,
+        deleteList,
         insertListItem,
         toggleListItem
     }
-}
+};
 
 export default useLists;

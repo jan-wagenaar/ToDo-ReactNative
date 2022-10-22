@@ -17,16 +17,12 @@ const ListDelete = () => {
     const { showActionSheetWithOptions } = useActionSheet();
     
     const onClickDelete = () => {
-
-    }
+        deleteList();
+    };
 
     const onClickTrash = () => {
         showActionSheetWithOptions(actionSheetOptions, onClickDelete)
-    }
-
-    const options = ['Delete', 'Save', 'Cancel'];
-    const destructiveButtonIndex = 0;
-    const cancelButtonIndex = 2;
+    };
 
     return (
         <Pressable
