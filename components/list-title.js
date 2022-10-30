@@ -14,9 +14,12 @@ const ListTitle = () => {
         refreshCurrentList
       } = useContext(ListsContext);
 
- 
     useEffect(() => {
-        setListName(currentList.name);
+        if(currentList) {
+            setListName(currentList.name);
+        } else {
+            setListName('')
+        }
     }, [currentList])
 
     const updateListName = (newName) => {

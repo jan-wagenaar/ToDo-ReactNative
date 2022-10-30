@@ -10,6 +10,7 @@ const useLists = () => {
         currentList, 
         setupNextList,
         refreshLists,
+        refreshCurrentList,
         refreshCurrentListItems 
     } = useContext(ListsContext);
 
@@ -45,9 +46,17 @@ const useLists = () => {
         const newListRec = {
             name: 'New list',
             datetime: '2022-07-24 12:00:00'
+        };
+
+        const refreshCallback = (id) => {
+            refreshLists();
+            refreshCurrentList(id);
+            refreshCurrentListItems(id);
+            
+            successFunc();
         }
         
-        return DBInsertList(newListRec, successFunc);
+        return DBInsertList(newListRec, refreshCallback);
     };
 
     const updateList = (listName, listId) => {

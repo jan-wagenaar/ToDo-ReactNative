@@ -1,10 +1,10 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useContext } from "react";
 import { Platform, KeyboardAvoidingView, TouchableWithoutFeedback, StyleSheet, Keyboard, Button, Text, TextInput, View, SafeAreaView } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
 
 import { ListsContext } from "../context/lists-context";
 import List from "../components/list";
 import ListItemInput from "../components/new-item";
+import ListEmptyState from "../components/list-empty-state";
 
 const TodoList = () => {
   const { 
@@ -19,24 +19,29 @@ const TodoList = () => {
       keyboardVerticalOffset={120}
       style={styles.flexOne}
     >
-      <View 
-        style={styles.container}
-      >
-        <TouchableWithoutFeedback 
-          onPress={Keyboard.dismiss}
-          >
-          <View style={styles.inner}>
-              <List 
-                items={currentListItems}
+        {
+          currentList === undefined 
+          ? <ListEmptyState />
+          : <View 
+              style={styles.container}
+            >
+              <TouchableWithoutFeedback 
+                onPress={Keyboard.dismiss}
+              >
+                <View style={styles.inner}>
+                  <List 
+                    items={currentListItems}
+                    refreshFunc={refreshCurrentListItems}
+                  />
+                </View>
+              </TouchableWithoutFeedback>
+              <ListItemInput 
+                listId={currentList.id} 
                 refreshFunc={refreshCurrentListItems}
               />
-          </View>
-        </TouchableWithoutFeedback>
-        <ListItemInput 
-          listId={currentList?.id} 
-          refreshFunc={refreshCurrentListItems}
-        />
-      </View>
+            </View>
+      
+        }
     </KeyboardAvoidingView>
   )
 };
@@ -45,7 +50,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#3441fc',
-    
   },
   flexOne: {
     flex: 1

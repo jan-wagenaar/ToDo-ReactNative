@@ -1,6 +1,5 @@
 // force the state to clear with fast refresh in Expo
 // @refresh reset
-import { useNavigation } from '@react-navigation/native';
 import React, { createContext, useState, useEffect } from 'react';
 import { database } from '../database/database'
 
@@ -21,7 +20,7 @@ export const ListsContextProvider = props => {
 
   useEffect(() => {
     refreshLists();
-    if(currentList.id === 0) {
+    if(currentList === undefined) {
       setupNextList()
     }
   }, [] )
@@ -43,15 +42,17 @@ export const ListsContextProvider = props => {
   }
 
   const refreshCurrentList = (id) => {
+    console.log(id)
     if(id === undefined) {
-      setCurrentList(initialList);
+      setCurrentList(undefined);
     } else {
-      database.DBGetListById(id, (list) => setCurrentList(list));
+      database.DBGetListById(id, (list) => {console.log(list); setCurrentList(list)});
     }
   }
 
   const refreshCurrentListItems = (id) => {
-    if(id === undefined) {
+    console.log("List item id: " + id)
+    if(id === undefined && currentList === undefined) {
       database.DBGetListItems(0, (listItems) => setCurrentListItems(listItems));
     } else {
       database.DBGetListItems(id || currentList.id, (listItems) => setCurrentListItems(listItems));

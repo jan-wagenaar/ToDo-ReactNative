@@ -5,12 +5,14 @@ import useLists from "../hooks/useLists";
 import Checkbox from "./checkbox";
 
 const ListItemInput = ({ listId, refreshFunc }) => {
-    const [itemName, onChangeItemName] = React.useState('');
+    const [itemName, SetItemName] = React.useState('');
     const { insertListItem } = useLists();
 
     const insertNewListItem = () => {
-        insertListItem({ listId: listId, name: itemName, dateTime: '2022-07-24 12:00:00' }, refreshFunc);
-        onChangeItemName('')
+        console.log("Inserting item with id "+ listId)
+        console.log(refreshFunc)
+        insertListItem({ listId: listId, name: itemName, dateTime: '2022-07-24 12:00:00' }, () => refreshFunc(listId));
+        SetItemName('')
     };
 
     return (
@@ -18,7 +20,7 @@ const ListItemInput = ({ listId, refreshFunc }) => {
                 <Checkbox isChecked={false} />
                 <TextInput
                     style={styles.textInput}
-                    onChangeText={onChangeItemName}
+                    onChangeText={SetItemName}
                     onSubmitEditing={insertNewListItem}
                     placeholder="Add task"
                     placeholderTextColor="#666"

@@ -4,19 +4,21 @@ import { DrawerContentScrollView } from '@react-navigation/drawer';
 
 import { ListsContext } from "../context/lists-context";
 import useLists from '../hooks/useLists';
-import { database } from '../database/database'
 import StyledDrawerItem from './styled-drawer-item';
   
 const DrawerContent = (props) => {
-  const { lists, currentList, refreshLists, refreshCurrentList, refreshCurrentListItems } = useContext(ListsContext);
+  const { 
+    lists, 
+    currentList, 
+    refreshLists, 
+    refreshCurrentList, 
+    refreshCurrentListItems 
+  } = useContext(ListsContext);
   const { insertList } = useLists();
 
 
   const setupNewList = () => {
-    insertList((id) => {
-      refreshLists();
-      refreshCurrentList(id);
-      refreshCurrentListItems(id);
+    insertList(() => {
       props.navigation.navigate('Home');
     });
   }
@@ -28,7 +30,7 @@ const DrawerContent = (props) => {
   }
 
   const renderLists = () => {
-    if(lists) {
+    if(lists && currentList) {
       return (
         lists.map((object) => {
           return (
@@ -36,7 +38,10 @@ const DrawerContent = (props) => {
               key={object.id}
               label={object.name}
               onPress={() => changeList(object.id)}
-              style={[currentList.id === object.id ? { color: '#fff', fontWeight: '600' } : undefined ]}
+              style={[
+                currentList.id === object.id 
+                ? { color: '#fff', fontWeight: '600' } 
+                : undefined ]}
             />
           )
         })

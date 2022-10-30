@@ -29,7 +29,6 @@ const DrawerStack = () => {
         <Drawer.Screen 
           name="Home" 
           component={TodoList} 
-          initialParams={{ listId: 0 }}
           options={
             { 
               headerTitle: (props) => <ListTitle {...props} />,

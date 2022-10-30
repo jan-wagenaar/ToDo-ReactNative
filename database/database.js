@@ -118,7 +118,7 @@ const DBInsertListItem = (listItemRec, successFunc) => {
       tx.executeSql( 'INSERT INTO listitem (listid, name) VALUES (?,?)', [listItemRec.listId, listItemRec.name] );
     },
     (_, error) => { console.log("db error insertListItem"); console.log(error);},
-    (_, success) => { successFunc() }
+    (_, success) => { successFunc();console.log(error) }
   )
 };
 
@@ -172,6 +172,8 @@ const DBSetupListsAsync = async () => {
     db.transaction( tx => {
         tx.executeSql( 'INSERT INTO list (name, datetime) VALUES (?,?)', ["Todays todo", "2022-07-24 12:00:00"],(_) => {}, (_, err) => console.log(err)),
         tx.executeSql( 'INSERT INTO listitem (listid, name, is_completed, datetime) VALUES (?,?,?,?)', [1, "Create app", 1, "2022-07-24 12:00:00"], (_) => {}, (_, err) => console.log(err))
+        tx.executeSql( 'INSERT INTO listitem (listid, name, is_completed, datetime) VALUES (?,?,?,?)', [1, "Change styling", 0, "2022-07-24 12:00:00"], (_) => {}, (_, err) => console.log(err))
+
       },
       (t, error) => { console.log("db error setup sample data"); console.log(error); resolve() },
       (t, success) => { resolve(success)}
