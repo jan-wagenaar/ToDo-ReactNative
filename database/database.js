@@ -118,7 +118,7 @@ const DBInsertListItem = (listItemRec, successFunc) => {
       tx.executeSql( 'INSERT INTO listitem (listid, name) VALUES (?,?)', [listItemRec.listId, listItemRec.name] );
     },
     (_, error) => { console.log("db error insertListItem"); console.log(error);},
-    (_, success) => { successFunc();console.log(error) }
+    (_, success) => { successFunc();console.log(success) }
   )
 };
 

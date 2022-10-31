@@ -1,7 +1,7 @@
 import React from "react";
 import { View, StyleSheet, Text, TextInput, FlatList } from "react-native";
 
-import ListItem from "./listitem";
+import ListItem from "./listItem";
 
 const List = ({ items, refreshFunc }) => {
     return (

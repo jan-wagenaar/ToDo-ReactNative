@@ -6,7 +6,6 @@ import { ListsContext } from "../context/lists-context";
 
 const useLists = () => { 
     const { 
-        currentListItems, 
         currentList, 
         setupNextList,
         refreshLists,
@@ -18,12 +17,9 @@ const useLists = () => {
         DBGetLists,
         DBGetLastListId,
         DBGetListById,
-        DBGetListItems,
         DBInsertList,
         DBUpdateListById,
         DBDeleteListById,
-        DBInsertListItem,
-        DBToggleListItem
     } = database
 
     const getLists = (setListsFunc) => {
@@ -36,10 +32,6 @@ const useLists = () => {
 
     const getListById = (id, setListFunc) => {
         return DBGetListById(id, setListFunc);
-    }
-
-    const getListItems = (itemId, setListItemsFunc) => {
-        return DBGetListItems(itemId, setListItemsFunc);
     }
 
     const insertList = (successFunc) => {
@@ -78,24 +70,13 @@ const useLists = () => {
         DBDeleteListById(currentList.id, OnAfterDelete);
     };
 
-    const insertListItem = (listItemRec, successFunc) => {
-        return DBInsertListItem(listItemRec, successFunc);
-    };
-
-    const toggleListItem = (listItemId, successFunc) => {
-        return DBToggleListItem(listItemId, successFunc)
-    };
-
     return {
         getLists,
         getLastListId,
         getListById,
-        getListItems,
         insertList,
         updateList,
-        deleteList,
-        insertListItem,
-        toggleListItem
+        deleteList
     }
 };
 
