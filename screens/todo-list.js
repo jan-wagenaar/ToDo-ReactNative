@@ -2,16 +2,16 @@ import React, { useContext } from "react";
 import { Platform, KeyboardAvoidingView, TouchableWithoutFeedback, StyleSheet, Keyboard, Button, Text, TextInput, View, SafeAreaView } from 'react-native';
 
 import { ListsContext } from "../context/lists-context";
+import useCurrentList from "../hooks/useCurrentList"
 import List from "../components/list";
 import ListItemInput from "../components/new-item";
 import ListEmptyState from "../components/list-empty-state";
 
 const TodoList = () => {
   const { 
-    currentListItems, 
     currentList, 
-    refreshCurrentListItems 
-  } = useContext(ListsContext);
+    currentListItems, 
+  } = useCurrentList();
   
   return (
     <KeyboardAvoidingView
@@ -31,14 +31,10 @@ const TodoList = () => {
                 <View style={styles.inner}>
                   <List 
                     items={currentListItems}
-                    refreshFunc={refreshCurrentListItems}
                   />
                 </View>
               </TouchableWithoutFeedback>
-              <ListItemInput 
-                listId={currentList.id} 
-                refreshFunc={refreshCurrentListItems}
-              />
+              <ListItemInput />
             </View>
       
         }

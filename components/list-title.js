@@ -1,7 +1,7 @@
-import React, {useState, useEffect, useContext } from "react";
+import React, {useState, useEffect } from "react";
 
 import useLists from "../hooks/useLists";
-import { ListsContext } from "../context/lists-context";
+import useCurrentList from "../hooks/useCurrentList";
 import StyledListTitle from "./styled-list-title";
 
 const ListTitle = () => {
@@ -12,13 +12,13 @@ const ListTitle = () => {
         currentList, 
         refreshLists,
         refreshCurrentList
-      } = useContext(ListsContext);
+      } = useCurrentList();
 
     useEffect(() => {
         if(currentList) {
-            setListName(currentList.name);
+            updateListName(currentList.name);
         } else {
-            setListName('')
+            updateListName('')
         }
     }, [currentList])
 

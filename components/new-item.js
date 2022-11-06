@@ -1,15 +1,17 @@
 import React from "react";
 import { StyleSheet, TextInput, View } from 'react-native';
 
+import useCurrentList from "../hooks/useCurrentList";
 import useListItems from "../hooks/useListItems";
 import Checkbox from "./checkbox";
 
-const ListItemInput = ({ listId, refreshFunc }) => {
+const ListItemInput = () => {
     const [itemName, SetItemName] = React.useState('');
+    const { currentList, refreshCurrentListItems} = useCurrentList();
     const { insertListItem } = useListItems();
 
     const insertNewListItem = () => {
-        insertListItem({ listId: listId, name: itemName, dateTime: '2022-07-24 12:00:00' }, () => refreshFunc(listId));
+        insertListItem({ listId: currentList.id, name: itemName, dateTime: '2022-07-24 12:00:00' }, () => refreshCurrentListItems());
         SetItemName('')
     };
 

@@ -1,21 +1,22 @@
-import React, {useState, useEffect, useContext } from 'react';
+import React from 'react';
 import { Text } from 'react-native';
 import { DrawerContentScrollView } from '@react-navigation/drawer';
 
-import { ListsContext } from "../context/lists-context";
 import useLists from '../hooks/useLists';
+import useCurrentList from '../hooks/useCurrentList';
 import StyledDrawerItem from './styled-drawer-item';
+
   
 const DrawerContent = (props) => {
   const { 
-    lists, 
-    currentList, 
-    refreshLists, 
+    lists
+  } = useLists();
+  const { 
+    currentList,  
     refreshCurrentList, 
     refreshCurrentListItems 
-  } = useContext(ListsContext);
+  } = useCurrentList();
   const { insertList } = useLists();
-
 
   const setupNewList = () => {
     insertList(() => {

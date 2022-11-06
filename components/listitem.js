@@ -1,15 +1,17 @@
 import React from "react";
 import { View, StyleSheet, Text, Pressable, Vibration } from "react-native";
 
+import useCurrentList from "../hooks/useCurrentList";
 import useListItems from "../hooks/useListItems";
 import Checkbox from "./checkbox";
 
-const ListItem = ({ item, refreshFunc }) => {
+const ListItem = ({ item }) => {
+    const { refreshCurrentListItems} = useCurrentList();
     const { toggleListItem } = useListItems();
 
     const toggleItem = () => {
         Vibration.vibrate([100]);
-        toggleListItem(item.id, refreshFunc);
+        toggleListItem(item.id, refreshCurrentListItems);
     }
 
     return (

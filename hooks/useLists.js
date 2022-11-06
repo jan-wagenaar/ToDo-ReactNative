@@ -6,33 +6,18 @@ import { ListsContext } from "../context/lists-context";
 
 const useLists = () => { 
     const { 
+        lists,
         currentList, 
-        setupNextList,
         refreshLists,
         refreshCurrentList,
         refreshCurrentListItems 
     } = useContext(ListsContext);
 
   const {
-        DBGetLists,
-        DBGetLastListId,
-        DBGetListById,
         DBInsertList,
         DBUpdateListById,
         DBDeleteListById,
     } = database
-
-    const getLists = (setListsFunc) => {
-        return DBGetLists(setListsFunc);
-    }
-
-    const getLastListId = (successFunc) => {
-        return DBGetLastListId(successFunc);
-    };
-
-    const getListById = (id, setListFunc) => {
-        return DBGetListById(id, setListFunc);
-    }
 
     const insertList = (successFunc) => {
         const newListRec = {
@@ -71,9 +56,7 @@ const useLists = () => {
     };
 
     return {
-        getLists,
-        getLastListId,
-        getListById,
+        lists,
         insertList,
         updateList,
         deleteList
