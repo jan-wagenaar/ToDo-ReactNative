@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 
-import { ListsContext } from "../context/lists-context";
+import { ListsContext } from "../context/listsContext";
 
 
 const useListItems = () => { 

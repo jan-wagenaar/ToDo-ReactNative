@@ -1,11 +1,10 @@
 import React, { useContext } from "react";
 import { Platform, KeyboardAvoidingView, TouchableWithoutFeedback, StyleSheet, Keyboard, Button, Text, TextInput, View, SafeAreaView } from 'react-native';
 
-import { ListsContext } from "../context/lists-context";
 import useCurrentList from "../hooks/useCurrentList"
 import List from "../components/list";
-import ListItemInput from "../components/new-item";
-import ListEmptyState from "../components/list-empty-state";
+import ListItemInput from "../components/newItem";
+import ListEmptyState from "../components/listEmptyState";
 
 const TodoList = () => {
   const { 

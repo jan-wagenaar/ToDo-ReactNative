@@ -18,7 +18,7 @@ export const ListsContextProvider = props => {
   const [currentList, setCurrentList] = useState();
   const [currentListItems, setCurrentListItems] = useState(initialListItems);
 
-  useEffect(() => {
+    useEffect(() => {
     refreshLists();
     if(currentList === undefined) {
       setupNextList()
@@ -31,7 +31,7 @@ export const ListsContextProvider = props => {
     refreshCurrentListItems(id);
   }
 
-  const refreshLists = () => {
+  function refreshLists() {
     database.DBGetLists((lists) => setLists(lists));
   }
 
@@ -57,6 +57,7 @@ export const ListsContextProvider = props => {
     lists,
     currentList,
     currentListItems,
+    setupNextList,
     refreshLists,
     refreshCurrentList,
     refreshCurrentListItems

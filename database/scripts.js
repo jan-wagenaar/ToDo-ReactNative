@@ -14,10 +14,13 @@ export const tableSetupListItemScript = `
         datetime TEXT DEFAULT CURRENT_TIMESTAMP
     );
 `
-export const tableDropTables = `
+export const tableDropListItemTable = `
     DROP TABLE IF EXISTS listitem
+`;
+
+export const tableDropListTable = `
     DROP TABLE IF EXISTS list
-`
+`;
 
 export const getListsScript = `SELECT * FROM list`;
 

@@ -2,7 +2,7 @@ import React, {useState, useEffect } from "react";
 
 import useLists from "../hooks/useLists";
 import useCurrentList from "../hooks/useCurrentList";
-import StyledListTitle from "./styled-list-title";
+import StyledListTitle from "./styledListTitle";
 
 const ListTitle = () => {
     const [listName, setListName] = useState('');

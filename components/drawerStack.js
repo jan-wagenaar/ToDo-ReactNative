@@ -2,10 +2,10 @@ import React from 'react';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { NavigationContainer } from '@react-navigation/native';
 
-import TodoList from '../screens/todo-list';
-import DrawerContent from './drawer-content';
-import ListTitle from './list-title';
-import ListDelete from './list-delete';
+import TodoList from '../screens/todoList';
+import DrawerContent from './drawerContent';
+import ListTitle from './listTitle';
+import ListDelete from './listDelete';
 
 
 const Drawer = createDrawerNavigator();

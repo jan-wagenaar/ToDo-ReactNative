@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import { database } from '../database/database';
 
-import { ListsContext } from "../context/lists-context";
+import { ListsContext } from "../context/listsContext";
 
 
 const useListItems = () => { 

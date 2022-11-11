@@ -1,11 +1,9 @@
 <h1 align="center">
-  Todo-RN
+  Todo-ReactNative
 </h1>
 
-<h4 align="center">Demo app for  <a href="http://jan-wagenaar.nl/blog/react-native-vs-outsystems-developing-in-react-native" target="_blank">React Native vs. Outsystems blog posts</a>.</h4>
-<h6 align="center">Inspired by the <a href="https://www.codementor.io/projects/mobile/countdown-mobile-app-bjzn08zcon" target="_blank">Count down mobile app challenge by CodeMentor.io</a></h6>
-
-
+<h4 align="center">To do app built in React Native</h4>
+<h6>Part of my [portfolio](https://jan-wagenaar.nl/work)</h6>
 
 <p align="center">
   <a href="#key-features">Key Features</a> •
@@ -15,15 +13,12 @@
   <a href="#license">License</a>
 </p>
 
-![screenshot](/countdown-react-preview.gif)
-
-
 ## Key Features
 
 * Build in Expo / React Native
-* Local database with events
-* View events in overview list
-* Create and edit events
+* Local database with to do items
+* Create and edit to do lists
+* Create and complete to do items
 
 ## How To Use
 
@@ -31,10 +26,10 @@ To clone and run this application, you'll need [Git](https://git-scm.com) and [N
 
 ```bash
 # Clone this repository
-$ git clone https://github.com/jan-wagenaar/CountDownRN_solution.git
+$ git clone https://github.com/jan-wagenaar/ToDo-ReactNative.git
 
 # Go into the repository
-$ cd CountDownRN_solution
+$ cd ToDo-ReactNative
 
 # Install dependencies
 $ npm install
@@ -42,7 +37,6 @@ $ npm install
 # Run the app
 $ npm start
 ```
-Visit my [blog post](http://jan-wagenaar.nl/blog/react-native-vs-outsystems-developing-in-react-native) for instructions for the code challenge.
 
 Note: If you're using Linux Bash for Windows, [see this guide](https://www.howtogeek.com/261575/how-to-run-graphical-linux-desktop-applications-from-windows-10s-bash-shell/) or use `node` from the command prompt.
 

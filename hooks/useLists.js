@@ -1,7 +1,8 @@
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 import { database } from '../database/database';
+import { formatISO9075 } from 'date-fns'
 
-import { ListsContext } from "../context/lists-context";
+import { ListsContext } from "../context/listsContext";
 
 
 const useLists = () => { 
@@ -9,6 +10,7 @@ const useLists = () => {
         lists,
         currentList, 
         refreshLists,
+        setupNextList,
         refreshCurrentList,
         refreshCurrentListItems 
     } = useContext(ListsContext);
@@ -37,6 +39,7 @@ const useLists = () => {
     };
 
     const updateList = (listName, listId) => {
+        const currDate = formatISO9075(new Date());
         const updatedListRec = {
             id: listId,
             name: listName,

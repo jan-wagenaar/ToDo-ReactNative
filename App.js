@@ -2,10 +2,10 @@ import React from 'react';
 import * as SplashScreen from 'expo-splash-screen';
 import { ActionSheetProvider } from '@expo/react-native-action-sheet';
 
-import { ListsContextProvider } from './context/lists-context';
+import { ListsContextProvider } from './context/listsContext';
 import useDatabase from './hooks/useDatabase';
-import DrawerStack from './components/drawer-stack';
-import ErrorMessage from './components/error-message';
+import DrawerStack from './components/drawerStack';
+import ErrorMessage from './components/errorMessage';
 
 const initialList = {
   id: 0

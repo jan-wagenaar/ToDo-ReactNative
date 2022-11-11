@@ -4,7 +4,7 @@ import { DrawerContentScrollView } from '@react-navigation/drawer';
 
 import useLists from '../hooks/useLists';
 import useCurrentList from '../hooks/useCurrentList';
-import StyledDrawerItem from './styled-drawer-item';
+import StyledDrawerItem from './styledDrawerItem';
 
   
 const DrawerContent = (props) => {
@@ -49,7 +49,8 @@ const DrawerContent = (props) => {
       )
     } else {
       return (
-        <Text>No lists yet</Text>
+        //TODO: change text styling
+        <Text style={{color:'#fff'}}>No lists yet</Text>
       )
     }
   }

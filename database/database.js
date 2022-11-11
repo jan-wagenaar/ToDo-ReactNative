@@ -5,7 +5,8 @@ const db = SQLite.openDatabase('db.db')
 import { 
   tableSetupScript,
   tableSetupListItemScript,
-  tableDropTables,
+  tableDropListItemTable,
+  tableDropListTable,
   getListsScript,
   insertListScript
 } from './scripts';
@@ -146,8 +147,8 @@ const DBDeleteListItemsFromList = ( listId, callBackFunc ) => {
 const DBDropDatabaseTablesAsync = async () => {
   return new Promise((resolve, reject) => {
     db.transaction(tx => {
-        tx.executeSql('DROP TABLE IF EXISTS listitem', []),
-        tx.executeSql('DROP TABLE IF EXISTS list', [])      
+        tx.executeSql(tableDropListItemTable, []),
+        tx.executeSql(tableDropListTable, [])      
       },
       (_, error) => { console.log("db error dropping tables"); console.log(error); reject(error) },
       (_, success) => { resolve(success)}
