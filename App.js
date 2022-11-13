@@ -7,10 +7,6 @@ import useDatabase from './hooks/useDatabase';
 import DrawerStack from './components/drawerStack';
 import ErrorMessage from './components/errorMessage';
 
-const initialList = {
-  id: 0
-}
-
 const App = () => {
   SplashScreen.preventAutoHideAsync(); //don't let the splash screen hide
   const isDBLoadingComplete = useDatabase();
@@ -19,9 +15,7 @@ const App = () => {
     SplashScreen.hideAsync();
 
     return (
-      <ListsContextProvider
-        initialList={initialList}
-      >
+      <ListsContextProvider>
         <ActionSheetProvider>
           <DrawerStack />
         </ActionSheetProvider>

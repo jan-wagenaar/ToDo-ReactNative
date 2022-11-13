@@ -52,14 +52,6 @@ const styles = StyleSheet.create({
   inner: {
     flex: 1,
     justifyContent: "space-around",
-  },
-  header: {
-    fontSize: 36,
-    marginBottom: 48
-  },
-  btnContainer: {
-    backgroundColor: "white",
-    marginTop: 12
   }
 })
 
