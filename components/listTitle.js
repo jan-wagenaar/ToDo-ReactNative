@@ -35,6 +35,7 @@ const ListTitle = () => {
     return (
         <StyledListTitle
             listName={listName}
+            isEnabled={(currentList !== undefined)}
             updateListName={updateListName}
             saveListName={saveListName}
         />

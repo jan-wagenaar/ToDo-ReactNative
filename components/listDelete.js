@@ -1,9 +1,10 @@
 import React from "react";
-import { Pressable } from "react-native";
+import { View, Pressable } from "react-native";
 import { FontAwesome } from '@expo/vector-icons';
 import { useActionSheet } from '@expo/react-native-action-sheet';
 
 import useLists from "../hooks/useLists";
+import useCurrentList from "../hooks/useCurrentList";
 
 const actionSheetOptions = {
     options: ['Delete list', 'Cancel'],
@@ -14,6 +15,7 @@ const actionSheetOptions = {
  
 const ListDelete = () => {
     const { deleteList } = useLists(); 
+    const { currentList } = useCurrentList();
     const { showActionSheetWithOptions } = useActionSheet();
     
     const onClickDelete = () => {
@@ -25,16 +27,21 @@ const ListDelete = () => {
     };
 
     return (
-        <Pressable
-            onPress={onClickTrash}
-            style={{padding: 20}}
-        >
-            <FontAwesome 
-                name="trash-o" 
-                size={24} 
-                color="white" 
-            />
-        </Pressable>
+        <View>
+            {
+                currentList && 
+                <Pressable
+                    onPress={onClickTrash}
+                    style={{padding: 20}}
+                >
+                    <FontAwesome 
+                        name="trash-o" 
+                        size={24} 
+                        color="white" 
+                    />
+                </Pressable>
+            }
+        </View>
     )
 };
 

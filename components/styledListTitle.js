@@ -1,23 +1,27 @@
 import React from "react";
-import { View, StyleSheet, TextInput, SafeAreaView } from "react-native";
+import { View, StyleSheet, TextInput } from "react-native";
 
 const StyledListTitle = ({
     listName, 
     startEditingText,
     updateListName,
-    saveListName
+    saveListName,
+    isEnabled
 }) => {
     return (
         <View>
-            <TextInput
-                style={styles.input}
-                onChangeText={updateListName}
-                onFocus={startEditingText}
-                onEndEditing={saveListName}
-                returnKeyType='done'
-                value={listName}
-                placeholder="List title"
-            />
+            {
+                isEnabled &&
+                <TextInput
+                    style={styles.input}
+                    onChangeText={updateListName}
+                    onFocus={startEditingText}
+                    onEndEditing={saveListName}
+                    returnKeyType='done'
+                    value={listName}
+                    placeholder="List title"
+                />
+            }
         </View>  
     )
 };
