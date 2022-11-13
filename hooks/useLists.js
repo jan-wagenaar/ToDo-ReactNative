@@ -22,9 +22,10 @@ const useLists = () => {
     } = database
 
     const insertList = (successFunc) => {
+        const currDate = formatISO9075(new Date());
         const newListRec = {
             name: 'New list',
-            datetime: '2022-07-24 12:00:00'
+            datetime: currDate
         };
 
         const refreshCallback = (id) => {
@@ -43,7 +44,7 @@ const useLists = () => {
         const updatedListRec = {
             id: listId,
             name: listName,
-            datetime: '2022-07-24 12:00:00'
+            datetime: currDate
         }
         
         return DBUpdateListById(updatedListRec)

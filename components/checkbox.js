@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react';
+import React from 'react';
 import { View, StyleSheet } from "react-native";
 
 const Checkbox = ({ isChecked }) => {

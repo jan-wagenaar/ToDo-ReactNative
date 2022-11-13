@@ -140,7 +140,7 @@ const DBDeleteListItemsFromList = ( listId, callBackFunc ) => {
         [listId]);
     },
     (t, error) => { console.log("db error deleting list items"); console.log(error) },
-    (_t, _success) => { callBackFunc(); console.log("Deleted event")}
+    (_t, _success) => { callBackFunc()}
   )
 };
 

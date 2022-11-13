@@ -5,18 +5,20 @@ import { DrawerContentScrollView } from '@react-navigation/drawer';
 import useLists from '../hooks/useLists';
 import useCurrentList from '../hooks/useCurrentList';
 import StyledDrawerItem from './styledDrawerItem';
+import {DrawerTitle, EmptyListWarning} from './styledDrawerText';
 
   
 const DrawerContent = (props) => {
   const { 
-    lists
+    lists,
+    insertList
   } = useLists();
+
   const { 
     currentList,  
     refreshCurrentList, 
     refreshCurrentListItems 
   } = useCurrentList();
-  const { insertList } = useLists();
 
   const setupNewList = () => {
     insertList(() => {
@@ -39,18 +41,16 @@ const DrawerContent = (props) => {
               key={object.id}
               label={object.name}
               onPress={() => changeList(object.id)}
-              style={[
-                currentList.id === object.id 
-                ? { color: '#fff', fontWeight: '600' } 
-                : undefined ]}
+              isActive = { currentList.id === object.id }
             />
           )
         })
       )
     } else {
       return (
-        //TODO: change text styling
-        <Text style={{color:'#fff'}}>No lists yet</Text>
+        <EmptyListWarning>
+          No lists yet
+        </EmptyListWarning>
       )
     }
   }
@@ -58,10 +58,9 @@ const DrawerContent = (props) => {
     return (
       <>
         <DrawerContentScrollView {...props}>
-          <Text 
-              style={{ color: '#fff', fontSize: 32, margin: 22}}>
+          <DrawerTitle>
             Lists
-          </Text>
+          </DrawerTitle>
           {renderLists()}
           <StyledDrawerItem
                 label="+ Create list"
@@ -72,5 +71,6 @@ const DrawerContent = (props) => {
       </>
     );
   };
+
 
   export default DrawerContent;

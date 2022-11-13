@@ -2,16 +2,16 @@ import React from "react";
 import { DrawerItem } from '@react-navigation/drawer';
 import { View, Text } from 'react-native';
 
-const StyledDrawerItem = ({ label, type, style, onPress}) => {
+const StyledDrawerItem = ({ label, type, isActive, onPress}) => {
     return (
         <DrawerItem
-              label={() => <DrawerItemLabel label={label} type={type} style={style}/>}
+              label={() => <DrawerItemLabel label={label} type={type} isActive={isActive}/>}
               onPress={onPress}
             />
     )
 };
 
-const DrawerItemLabel = ({ label, type, style}) => {
+const DrawerItemLabel = ({ label, type, isActive}) => {
     return (
         <View style={ 
             type == 'button' ? 
@@ -24,7 +24,15 @@ const DrawerItemLabel = ({ label, type, style}) => {
                 } 
             : undefined}>
         <Text 
-            style={[{color: '#fff', fontSize: 18}, style]}>
+            style={
+                    [
+                        isActive ? {
+                            color: '#fff', 
+                            fontWeight: '600'
+                        } : undefined,
+                        {color: '#fff', fontSize: 18}
+                    ]
+                }>
             {label}
         </Text>
         </View>

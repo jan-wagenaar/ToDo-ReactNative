@@ -1,9 +1,9 @@
-import React, { useContext } from "react";
+import React from "react";
 import { Platform, KeyboardAvoidingView, TouchableWithoutFeedback, StyleSheet, Keyboard, Button, Text, TextInput, View, SafeAreaView } from 'react-native';
 
 import useCurrentList from "../hooks/useCurrentList"
 import List from "../components/list";
-import ListItemInput from "../components/newItem";
+import ToDoItemForm from "../components/toDoItemForm";
 import ListEmptyState from "../components/listEmptyState";
 
 const TodoList = () => {
@@ -33,7 +33,7 @@ const TodoList = () => {
                   />
                 </View>
               </TouchableWithoutFeedback>
-              <ListItemInput />
+              <ToDoItemForm />
             </View>
       
         }

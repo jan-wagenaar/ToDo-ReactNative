@@ -3,7 +3,7 @@ import { useContext } from 'react';
 import { ListsContext } from "../context/listsContext";
 
 
-const useListItems = () => { 
+const useCurrentList = () => { 
     const { 
         currentListItems, 
         currentList, 
@@ -23,4 +23,4 @@ const useListItems = () => {
     return currentListActions;
 };
 
-export default useListItems;
+export default useCurrentList;
