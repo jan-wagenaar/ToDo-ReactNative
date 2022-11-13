@@ -5,10 +5,10 @@ import { database } from '../database/database'
 
 export const ListsContext = createContext({});
 
-export const ListsContextProvider = () => {
+export const ListsContextProvider = ({ children}) => {
   const [lists, setLists] = useState();
   const [currentList, setCurrentList] = useState();
-  const [currentListItems, setCurrentListItems] = useState(initialListItems);
+  const [currentListItems, setCurrentListItems] = useState();
 
   useEffect(() => {
     refreshLists();
