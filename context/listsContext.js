@@ -5,20 +5,12 @@ import { database } from '../database/database'
 
 export const ListsContext = createContext({});
 
-export const ListsContextProvider = props => {
-  // Initial values are obtained from the props
-
-  const {
-    initialLists,
-    initialListItems,
-    children
-  } = props;
-
-  const [lists, setLists] = useState(initialLists);
+export const ListsContextProvider = () => {
+  const [lists, setLists] = useState();
   const [currentList, setCurrentList] = useState();
   const [currentListItems, setCurrentListItems] = useState(initialListItems);
 
-    useEffect(() => {
+  useEffect(() => {
     refreshLists();
     if(currentList === undefined) {
       setupNextList()
