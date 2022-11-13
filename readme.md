@@ -3,12 +3,11 @@
 </h1>
 
 <h4 align="center">To do app built in React Native</h4>
-<h6>Part of my [portfolio](https://jan-wagenaar.nl/work)</h6>
+<h6 align="center">Part of my <a href="https://jan-wagenaar.nl/work">portfolio</a></h6>
 
 <p align="center">
   <a href="#key-features">Key Features</a> •
   <a href="#how-to-use">How To Use</a> •
-  <a href="#download">Download</a> •
   <a href="#credits">Credits</a> •
   <a href="#license">License</a>
 </p>

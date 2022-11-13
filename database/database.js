@@ -8,14 +8,23 @@ import {
   tableDropListItemTable,
   tableDropListTable,
   getListsScript,
-  insertListScript
-} from './scripts';
+  GetListByIdScript,
+  UpdateListByIdScript,
+  GetLastListIdScript,
+  insertListScript,
+  DeleteListItemsFromListScript,
+  DeleteListByIdScript,
+  GetListItemsScript,
+  InsertListItemScript,
+  ToggleListItemScript
+} from './db-scripts';
 
 import { 
   dataSetupListsScript, 
   dataSetupListsData,
   dataSetupListItemScript,
-  dataSetupListItemData
+  dataSetupListItemDataItemOne,
+  dataSetupListItemDataItemTwo
 } from './dummydata';
 
 db.exec([{ sql: 'PRAGMA foreign_keys = ON;', args: [] }], false, () =>
@@ -42,7 +51,7 @@ const DBGetLastListId = () => {
     db.transaction(
       tx => {
         tx.executeSql(
-          'SELECT id FROM list ORDER BY datetime DESC LIMIT 1',
+          GetLastListIdScript,
           [],
           (_, { rows: { _array } }) => { if(_array[0]) {resolve(_array[0].id)} else {resolve(undefined)} },
           (_, error) => { console.log("error retrieving list table"); reject(error) }
@@ -57,7 +66,7 @@ const DBGetListById = (id, successFunc) => {
     db.transaction(
       tx => {
         tx.executeSql(
-          'SELECT * FROM list WHERE list.id = ?',
+          GetListByIdScript,
           [id],
           (_, { rows: { _array } }) => { resolve(successFunc(_array[0])) },
           (_, error) => { console.log("error retrieving list table"); reject(error) }
@@ -69,7 +78,8 @@ const DBGetListById = (id, successFunc) => {
 
 const DBInsertList = (listRec, successFunc) => {
   db.transaction( tx => {
-      tx.executeSql( insertListScript, 
+      tx.executeSql( 
+        insertListScript, 
         [listRec.name, listRec.datetime],
         (t, r) => { successFunc(r.insertId);})
     },
@@ -78,7 +88,9 @@ const DBInsertList = (listRec, successFunc) => {
 
 const DBUpdateListById = (listRec) => {
   db.transaction( tx => {
-      tx.executeSql( 'UPDATE list SET name = ?,  datetime = ? WHERE ID = ?', [listRec.name, listRec.datetime, listRec.id] );
+      tx.executeSql( 
+        UpdateListByIdScript, 
+        [listRec.name, listRec.datetime, listRec.id]);
     },
     (t, error) => { console.log("db error insertList"); console.log(error);},
     (t, success) => { }
@@ -86,17 +98,17 @@ const DBUpdateListById = (listRec) => {
 }
 
 const DBDeleteListById = ( id, callBackFunc ) => {
-  console.log('Deleting list with id ' + id)
   db.transaction(
     tx => {
       tx.executeSql(
-        'DELETE FROM listitem where listitem.listid = (?)', [id])
+        DeleteListItemsFromListScript, 
+        [id])
       tx.executeSql( 
-        'DELETE FROM list WHERE list.ID = (?)', 
+        DeleteListByIdScript, 
         [id]);
     },
     (t, error) => { console.log("db error deleting list"); console.log(error) },
-    (_t, _success) => { callBackFunc(); console.log("Deleted list")}
+    (_t, _success) => { callBackFunc()}
   );
 }
 
@@ -105,7 +117,8 @@ const DBGetListItems = (itemId, setListItemsFunc) => {
     db.transaction(
       tx => {
         tx.executeSql(
-          'SELECT * FROM listitem WHERE listid = ?', [itemId],
+          GetListItemsScript, 
+          [itemId],
           (_, { rows: { _array } }) => { resolve(setListItemsFunc(_array)) },
           (_, error) => { console.log("error retrieving list items"); reject(error) }
         );
@@ -116,31 +129,21 @@ const DBGetListItems = (itemId, setListItemsFunc) => {
 
 const DBInsertListItem = (listItemRec, successFunc) => {
   db.transaction( tx => {
-      tx.executeSql( 'INSERT INTO listitem (listid, name) VALUES (?,?)', [listItemRec.listId, listItemRec.name] );
+      tx.executeSql( InsertListItemScript, 
+        [listItemRec.listId, listItemRec.name] );
     },
     (_, error) => { console.log("db error insertListItem"); console.log(error);},
-    (_, success) => { successFunc();console.log(success) }
+    (_, success) => { successFunc()}
   )
 };
 
 const DBToggleListItem = (listItemId, successFunc) => {
   db.transaction( tx => {
-      tx.executeSql( 'UPDATE listitem SET is_completed = ((is_completed | 1) - (is_completed & 1)) WHERE id = ?', [listItemId],(_) => {}, (_, err) => console.log(err) );
+      tx.executeSql( ToggleListItemScript, 
+        [listItemId],(_) => {}, (_, err) => console.log(err) );
     },
     (_, error) => { console.log("db error insertListItem"); console.log(error);},
     (_, success) => { successFunc() }
-  )
-};
-
-const DBDeleteListItemsFromList = ( listId, callBackFunc ) => {
-  db.transaction(
-    tx => {
-      tx.executeSql(
-        'DELETE FROM listItem WHERE list.ID = (?)', 
-        [listId]);
-    },
-    (t, error) => { console.log("db error deleting list items"); console.log(error) },
-    (_t, _success) => { callBackFunc()}
   )
 };
 
@@ -171,9 +174,9 @@ const DBSetupDatabaseAsync = async () => {
 const DBSetupListsAsync = async () => {
   return new Promise((resolve, _reject) => {
     db.transaction( tx => {
-        tx.executeSql( 'INSERT INTO list (name, datetime) VALUES (?,?)', ["Todays todo", "2022-07-24 12:00:00"],(_) => {}, (_, err) => console.log(err)),
-        tx.executeSql( 'INSERT INTO listitem (listid, name, is_completed, datetime) VALUES (?,?,?,?)', [1, "Create app", 1, "2022-07-24 12:00:00"], (_) => {}, (_, err) => console.log(err))
-        tx.executeSql( 'INSERT INTO listitem (listid, name, is_completed, datetime) VALUES (?,?,?,?)', [1, "Change styling", 0, "2022-07-24 12:00:00"], (_) => {}, (_, err) => console.log(err))
+        tx.executeSql( dataSetupListsScript, dataSetupListsData,(_) => {}, (_, err) => console.log(err)),
+        tx.executeSql( dataSetupListItemScript, dataSetupListItemDataItemOne, (_) => {}, (_, err) => console.log(err))
+        tx.executeSql( dataSetupListItemScript, dataSetupListItemDataItemTwo, (_) => {}, (_, err) => console.log(err))
 
       },
       (t, error) => { console.log("db error setup sample data"); console.log(error); resolve() },
@@ -192,7 +195,6 @@ export const database = {
   DBGetListItems,
   DBInsertListItem,
   DBToggleListItem,
-  DBDeleteListItemsFromList,
   DBSetupDatabaseAsync,
   DBSetupListsAsync,
   DBDropDatabaseTablesAsync,
